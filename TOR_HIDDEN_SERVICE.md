@@ -17,8 +17,15 @@ This version of mitmproxy includes built-in support for running as a Tor hidden 
 For a complete, automated setup on Ubuntu, use the provided setup script:
 
 ```bash
-# Download and run the setup script
+# Download the setup script
 wget https://raw.githubusercontent.com/bitbybit91/mitmproxy/master/setup-tor-ubuntu.sh
+
+# IMPORTANT: Review the script before running (security best practice)
+less setup-tor-ubuntu.sh
+# or
+cat setup-tor-ubuntu.sh
+
+# After reviewing, run with sudo
 sudo bash setup-tor-ubuntu.sh
 ```
 

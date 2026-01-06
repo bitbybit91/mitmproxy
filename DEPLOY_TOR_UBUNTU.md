@@ -7,7 +7,13 @@ This guide provides step-by-step instructions for deploying mitmproxy with Tor h
 **Automated Installation:**
 
 ```bash
+# Download the script
 wget https://raw.githubusercontent.com/bitbybit91/mitmproxy/master/setup-tor-ubuntu.sh
+
+# IMPORTANT: Review the script before running
+less setup-tor-ubuntu.sh
+
+# After reviewing, run with sudo
 sudo bash setup-tor-ubuntu.sh
 ```
 

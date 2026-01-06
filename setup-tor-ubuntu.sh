@@ -54,8 +54,11 @@ deb-src https://deb.torproject.org/torproject.org $(lsb_release -sc) main
 EOF
 
 # Add GPG key
-curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | \
-    gpg --dearmor -o /usr/share/keyrings/tor-archive-keyring.gpg
+curl --fail-with-body https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | \
+    gpg --dearmor -o /usr/share/keyrings/tor-archive-keyring.gpg || {
+    print_error "Failed to download Tor GPG key"
+    exit 1
+}
 
 # Update and install
 apt update
@@ -83,7 +86,11 @@ if [ -d "/opt/mitmproxy" ]; then
 else
     print_status "Cloning mitmproxy repository..."
     cd /opt
-    git clone https://github.com/bitbybit91/mitmproxy.git
+    # Using HTTPS for better compatibility
+    git clone https://github.com/bitbybit91/mitmproxy.git || {
+        print_error "Failed to clone repository"
+        exit 1
+    }
     chown -R mitmproxy:mitmproxy /opt/mitmproxy
 fi
 
