@@ -1,0 +1,188 @@
+# mitmproxy Configuration for Tor Hidden Service
+#
+# Save this file as: ~/.mitmproxy/config.yaml
+# or /opt/mitmproxy/.mitmproxy/config.yaml for system installation
+#
+# Usage: mitmweb --set confdir=~/.mitmproxy
+
+# =============================================================================
+# Basic Proxy Configuration
+# =============================================================================
+
+# Address to bind proxy to (use 127.0.0.1 for security)
+listen_host: 127.0.0.1
+
+# Proxy service port
+listen_port: 8080
+
+# Start proxy server (enabled by default)
+server: true
+
+# =============================================================================
+# Web Interface Configuration
+# =============================================================================
+
+# Web UI host (use 127.0.0.1 for security - access via Tor only)
+web_host: 127.0.0.1
+
+# Web UI port
+web_port: 8081
+
+# Don't open browser automatically (important for headless servers)
+web_open_browser: false
+
+# Enable debugging for web interface (set to true for troubleshooting)
+web_debug: false
+
+# =============================================================================
+# Tor Hidden Service Configuration
+# =============================================================================
+
+# Enable Tor hidden service support
+tor_enabled: true
+
+# Directory for Tor data and hidden service keys
+# Leave empty to use default: ~/.mitmproxy/tor
+tor_data_dir: ""
+
+# Tor control port
+tor_control_port: 9051
+
+# Tor SOCKS proxy port
+tor_socks_port: 9050
+
+# Expose web interface as hidden service
+tor_web_service: true
+
+# Expose proxy as hidden service (advanced usage)
+# Set to true if you want the proxy accessible via .onion address
+tor_proxy_service: false
+
+# =============================================================================
+# SSL/TLS Configuration
+# =============================================================================
+
+# Don't verify upstream server SSL/TLS certificates
+# Set to true only if you encounter SSL issues
+ssl_insecure: false
+
+# SSL/TLS version for client connections
+# Options: secure, all, SSLv2, SSLv3, TLSv1, TLSv1_1, TLSv1_2, TLSv1_3
+ssl_version_client: secure
+
+# SSL/TLS version for server connections
+ssl_version_server: secure
+
+# =============================================================================
+# HTTP Configuration
+# =============================================================================
+
+# Enable HTTP/2 support
+http2: true
+
+# Enable WebSocket support
+websocket: true
+
+# Strip upstream caching headers (anticache)
+anticache: false
+
+# Strip upstream compression headers (anticomp)
+anticomp: false
+
+# =============================================================================
+# Traffic Filtering
+# =============================================================================
+
+# Intercept filter (example: ~d example.com)
+# Syntax: https://docs.mitmproxy.org/stable/concepts-filters/
+intercept: ""
+
+# View filter for web interface
+view_filter: ""
+
+# Ignore hosts (don't intercept these)
+# ignore_hosts:
+#   - example.com
+#   - "192.168.1.*"
+
+# Allow only specific hosts (whitelist mode)
+# allow_hosts:
+#   - trusted-site.com
+
+# =============================================================================
+# Authentication
+# =============================================================================
+
+# Proxy authentication (format: username:password)
+# Uncomment and set credentials for basic authentication
+# proxyauth: "user:pass"
+
+# Upstream proxy authentication
+# upstream_auth: "user:pass"
+
+# =============================================================================
+# Content Modification
+# =============================================================================
+
+# Sticky authentication (maintain auth across requests)
+# stickyauth: "~d example.com"
+
+# Sticky cookies (maintain cookies across requests)
+# stickycookie: "~d example.com"
+
+# Replace patterns in traffic
+# Format: /pattern/replacement/flags
+# replacements:
+#   - "/~s/old-text/new-text/"
+
+# Set custom headers
+# Format: /pattern/header/value
+# setheaders:
+#   - "/~d example.com/X-Custom-Header/value"
+
+# =============================================================================
+# Replay and Recording
+# =============================================================================
+
+# Client replay file
+# client_replay: "/path/to/flows"
+
+# Server replay file
+# server_replay: "/path/to/flows"
+
+# Save all flows to file
+# save_stream_file: "/path/to/flows"
+
+# Read flows from file on startup
+# rfile: "/path/to/flows"
+
+# =============================================================================
+# Advanced Options
+# =============================================================================
+
+# Proxy mode
+# Options: regular, transparent, socks5, reverse:SPEC, upstream:SPEC
+mode: regular
+
+# Enable raw TCP support
+rawtcp: false
+
+# Show host header in URLs
+showhost: false
+
+# Stream large bodies (size threshold in KB)
+stream_large_bodies: ""
+
+# Content view lines limit
+content_view_lines_cutoff: 512
+
+# =============================================================================
+# Logging
+# =============================================================================
+
+# Verbosity level (options: error, warn, info, alert, debug)
+# For production, use 'info' or 'warn'
+# For troubleshooting, use 'debug'
+
+# Note: Logging verbosity is typically set via command line with -v flag
+# or through the quiet flag

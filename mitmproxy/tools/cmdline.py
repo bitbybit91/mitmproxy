@@ -129,6 +129,15 @@ def mitmweb(opts):
     opts.make_parser(group, "web_port", metavar="PORT")
     opts.make_parser(group, "web_host", metavar="HOST")
 
+    # Tor Hidden Service options
+    group = parser.add_argument_group("Tor Hidden Service")
+    opts.make_parser(group, "tor_enabled")
+    opts.make_parser(group, "tor_data_dir", metavar="DIR")
+    opts.make_parser(group, "tor_control_port", metavar="PORT")
+    opts.make_parser(group, "tor_socks_port", metavar="PORT")
+    opts.make_parser(group, "tor_web_service")
+    opts.make_parser(group, "tor_proxy_service")
+
     common_options(parser, opts)
     group = parser.add_argument_group(
         "Filters",
