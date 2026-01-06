@@ -176,9 +176,23 @@ print_status "Enabling and starting mitmproxy service..."
 systemctl enable mitmproxy-tor.service
 systemctl start mitmproxy-tor.service
 
-# Wait for Tor to generate .onion address
-print_status "Waiting for Tor to generate .onion address (this may take 30-60 seconds)..."
-sleep 60
+# Wait for Tor to generate .onion address with polling
+print_status "Waiting for Tor to generate .onion address..."
+ONION_FILE="/opt/mitmproxy/.mitmproxy/tor/hidden_service_web/hostname"
+MAX_WAIT=90
+ELAPSED=0
+POLL_INTERVAL=5
+
+while [ $ELAPSED -lt $MAX_WAIT ]; do
+    if [ -f "$ONION_FILE" ]; then
+        print_status ".onion address generated after ${ELAPSED} seconds"
+        break
+    fi
+    sleep $POLL_INTERVAL
+    ELAPSED=$((ELAPSED + POLL_INTERVAL))
+    echo -n "."
+done
+echo ""
 
 # Display status
 echo ""
@@ -192,7 +206,6 @@ if systemctl is-active --quiet mitmproxy-tor.service; then
     print_status "Service is running"
     
     # Try to get .onion address
-    ONION_FILE="/opt/mitmproxy/.mitmproxy/tor/hidden_service_web/hostname"
     if [ -f "$ONION_FILE" ]; then
         ONION_ADDR=$(cat "$ONION_FILE")
         echo ""

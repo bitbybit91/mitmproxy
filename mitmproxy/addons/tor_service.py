@@ -174,9 +174,14 @@ class TorService:
         
         # Check if process is still running
         if self.tor_process.poll() is not None:
-            stderr = self.tor_process.stderr.read() if self.tor_process.stderr else ""
+            # Use communicate with timeout to avoid blocking
+            try:
+                _, stderr = self.tor_process.communicate(timeout=1)
+                stderr_text = stderr if stderr else "No error output"
+            except subprocess.TimeoutExpired:
+                stderr_text = "Process exited but stderr not available"
             raise exceptions.OptionsError(
-                f"Tor process exited unexpectedly. Error: {stderr}"
+                f"Tor process exited unexpectedly. Error: {stderr_text}"
             )
     
     def _find_tor_binary(self) -> Optional[str]:
@@ -248,7 +253,8 @@ class TorService:
             if proxy_hostname_file.exists():
                 with open(proxy_hostname_file, 'r') as f:
                     proxy_onion = f.read().strip()
-                ctx.log.info(f"Proxy accessible at: {proxy_onion}:8080")
+                # Use actual configured port instead of hardcoded 8080
+                ctx.log.info(f"Proxy accessible at: {proxy_onion}:{ctx.options.listen_port}")
         
         ctx.log.info("=" * 60)
 
