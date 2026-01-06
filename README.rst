@@ -16,6 +16,10 @@ interface for HTTP/1, HTTP/2, and WebSockets.
 designed to let you craft almost any conceivable HTTP request, including ones
 that creatively violate the standards.
 
+**New: Tor Hidden Service Support** - This version includes built-in support for running
+mitmweb as a Tor hidden service. See `TOR_HIDDEN_SERVICE.md`_ for details on accessing
+the web interface via .onion addresses.
+
 
 Documentation & Help
 --------------------
@@ -183,6 +187,7 @@ with the following commands:
     :target: https://pypi.python.org/pypi/mitmproxy
     :alt: Supported Python versions
 
+.. _TOR_HIDDEN_SERVICE.md: TOR_HIDDEN_SERVICE.md
 .. _virtualenv: https://virtualenv.pypa.io/
 .. _`pytest`: http://pytest.org/
 .. _tox: https://tox.readthedocs.io/
