@@ -30,3 +30,9 @@ sslkeylogfile.log
 coverage.xml
 web/coverage/
 .mypy_cache/
+
+# Tor hidden service data (contains private keys)
+.mitmproxy/tor/
+**/tor/hidden_service_*/
+**/tor/torrc
+**/tor/*.log

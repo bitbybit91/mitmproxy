@@ -2,6 +2,19 @@
 
 This guide provides step-by-step instructions for deploying mitmproxy with Tor hidden service support on an Ubuntu VPS.
 
+## Quick Start
+
+**Automated Installation:**
+
+```bash
+wget https://raw.githubusercontent.com/bitbybit91/mitmproxy/master/setup-tor-ubuntu.sh
+sudo bash setup-tor-ubuntu.sh
+```
+
+The script will automatically install and configure everything. Your .onion address will be displayed at the end.
+
+**Manual Installation:** Follow the detailed steps below.
+
 ## Prerequisites
 
 - Ubuntu 18.04, 20.04, or 22.04 LTS server
